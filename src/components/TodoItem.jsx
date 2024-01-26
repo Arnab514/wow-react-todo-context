@@ -1,6 +1,30 @@
-import React from 'react'
+import React  from 'react'
+import { useState } from 'react';
+import { useTodo } from '../context/todoContext';
 
 function TodoItem({ todo }) {
+    const [isTodoEditable, setIsTodoEditable] = useState(false)
+    
+    const [todoMsg, setTodoMsg] = useState(todo.todo)
+
+    const {updateTodo , deleteTodo , toggleStatus} = useTodo()
+
+    const editTodo = () => {
+        if(todoMsg === ""){
+            alert('you can not save an empty todo')
+        }
+        else {
+
+            updateTodo (todo.id , {...todo , todo : todoMsg })
+            setIsTodoEditable(false)
+        }
+    }
+
+    const toggleCompleted = () => {
+        toggleStatus (todo.id)
+    }
+
+
     
 
     return (
